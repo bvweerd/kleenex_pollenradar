@@ -71,7 +71,7 @@ class KleenexSensor(CoordinatorEntity[PollenDataUpdateCoordinator]):
         icon: str,
         device_class: str | None,
         entity_category: ConfigEntry | None,
-        state_class: str,
+        state_class: ConfigEntry | None,
     ) -> None:
         super().__init__(coordinator)
         self._id = id
