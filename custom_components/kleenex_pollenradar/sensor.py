@@ -33,7 +33,7 @@ async def async_setup_entry(
             "mdi:clock-outline",
             SensorDeviceClass.TIMESTAMP,
             EntityCategory.DIAGNOSTIC,
-            "",
+            "None",
         ),
     ]
 
@@ -66,7 +66,7 @@ class KleenexSensor(CoordinatorEntity[PollenDataUpdateCoordinator]):
         icon: str,
         device_class: str | None,
         entity_category: ConfigEntry | None,
-        state_class: str | None,
+        state_class: str,
     ) -> None:
         super().__init__(coordinator)
         self._id = id
@@ -76,7 +76,7 @@ class KleenexSensor(CoordinatorEntity[PollenDataUpdateCoordinator]):
         self._device_class: str | None = device_class
         self._entry: ConfigEntry = entry
         self._attr_entity_category: ConfigEntry = entity_category
-        self._state_class: str | None = state_class
+        self._state_class = state_class
 
     @property
     def state(self) -> str:
@@ -98,6 +98,10 @@ class KleenexSensor(CoordinatorEntity[PollenDataUpdateCoordinator]):
     def device_class(self) -> str:
         return self._device_class
 
+    @property
+    def state_class(self) -> str:
+        return self._state_class
+        
     @property
     def name(self) -> str:
         return f"{self.description} ({self._entry.data['name']})"
