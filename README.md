@@ -41,4 +41,4 @@ This integration will work only if Kleenex/Scottex doesn't alter their interface
 
 ## Contributions
  * [hocuspocus69](https://github.com/hocuspocus69) &#8594; Added the Italian version.
- * [bvweerd] (https://github.com/bvweerd) Added statistics to sensors.
+ * [bvweerd](https://github.com/bvweerd) Added statistics to sensors.
