@@ -9,7 +9,12 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.device_registry import DeviceEntryType
-from homeassistant.components.sensor import SensorDeviceClass
+from homeassistant.components.sensor import (
+    SensorDeviceClass,
+    SensorEntity,
+    SensorEntityDescription,
+    SensorStateClass,
+)
 
 from .coordinator import PollenDataUpdateCoordinator
 from .const import DOMAIN, NAME, MODEL, MANUFACTURER
@@ -23,9 +28,9 @@ async def async_setup_entry(
     coordinator: PollenDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
 
     INSTRUMENTS = [
-        ("trees", "Tree Pollen", "trees", "mdi:tree", None, None, "measurement"),
-        ("grass", "Grass Pollen", "grass", "mdi:grass", None, None, "measurement"),
-        ("weeds", "Weed Pollen", "weeds", "mdi:cannabis", None, None, "measurement"),
+        ("trees", "Tree Pollen", "trees", "mdi:tree", SensorDeviceClass.VOLATILE_ORGANIC_COMPOUNDS_PARTS, None, SensorStateClass.MEASUREMENT),
+        ("grass", "Grass Pollen", "grass", "mdi:grass", SensorDeviceClass.VOLATILE_ORGANIC_COMPOUNDS_PARTS, None, SensorStateClass.MEASUREMENT),
+        ("weeds", "Weed Pollen", "weeds", "mdi:cannabis", SensorDeviceClass.VOLATILE_ORGANIC_COMPOUNDS_PARTS, None, SensorStateClass.MEASUREMENT),
         (
             "last_updated_pollen",
             "Last Updated (Pollen)",
