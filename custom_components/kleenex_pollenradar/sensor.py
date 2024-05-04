@@ -23,9 +23,9 @@ async def async_setup_entry(
     coordinator: PollenDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
 
     INSTRUMENTS = [
-        ("trees", "Tree Pollen", "trees", "mdi:tree", None, None),
-        ("grass", "Grass Pollen", "grass", "mdi:grass", None, None),
-        ("weeds", "Weed Pollen", "weeds", "mdi:cannabis", None, None),
+        ("trees", "Tree Pollen", "trees", "mdi:tree", None, None, "measurement"),
+        ("grass", "Grass Pollen", "grass", "mdi:grass", None, None, "measurement"),
+        ("weeds", "Weed Pollen", "weeds", "mdi:cannabis", None, None, "measurement"),
         (
             "last_updated_pollen",
             "Last Updated (Pollen)",
@@ -46,8 +46,9 @@ async def async_setup_entry(
             icon,
             device_class,
             entity_category,
+            state_class,
         )
-        for id, description, key, icon, device_class, entity_category in INSTRUMENTS
+        for id, description, key, icon, device_class, entity_category, state_class in INSTRUMENTS
     ]
 
     async_add_devices(sensors, True)
@@ -64,6 +65,7 @@ class KleenexSensor(CoordinatorEntity[PollenDataUpdateCoordinator]):
         icon: str,
         device_class: str | None,
         entity_category: ConfigEntry | None,
+        state_class: str | None,
     ) -> None:
         super().__init__(coordinator)
         self._id = id
@@ -73,6 +75,7 @@ class KleenexSensor(CoordinatorEntity[PollenDataUpdateCoordinator]):
         self._device_class: str | None = device_class
         self._entry: ConfigEntry = entry
         self._attr_entity_category: ConfigEntry = entity_category
+        self._state_class: str | None = state_class
 
     @property
     def state(self) -> str:
